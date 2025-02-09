@@ -28,13 +28,13 @@ describe('Team class', () => {
     expect(team.toArray()).toEqual(expect.arrayContaining([char1, char2, char3]));
   });
 
-  test('добавление повторяющихся персонажей без ошибки', () => {
-    team.addAll(char1, char2, char3, char2, char1);
-    expect(team.toArray()).toEqual(expect.arrayContaining([char1, char2, char3]));
+  test('ошибка при добавлении дубликатов через addAll', () => {
+    team.addAll(char1, char2);
+    expect(() => team.addAll(char1, char3, char2)).toThrow('Такой персонаж в команде уже существует');
   });
 
   test('конвертация в массив', () => {
-    team.addAll(char1, char2, char3);
+    team.addAll(char1, char2);
     expect(Array.isArray(team.toArray())).toBe(true);
   });
 });
